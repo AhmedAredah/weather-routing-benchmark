@@ -3,7 +3,7 @@
 **A multi-basin, multi-vessel, instance-matched benchmark for ship weather-routing and speed-optimization research.**
 
 [![License: CC BY 4.0](https://img.shields.io/badge/Data%20License-CC%20BY%204.0-blue.svg)](LICENSE)
-[![DOI](https://zenodo.org/badge/1284530844.svg)](https://doi.org/10.5281/zenodo.21052776)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21052776.svg)](https://doi.org/10.5281/zenodo.21052776)
 [![Paper](https://img.shields.io/badge/Paper-under%20review-orange.svg)](#citation)
 
 ---
