@@ -10,6 +10,12 @@ abstract: >-
   first-principles naval-architecture model and reported for both minimum-fuel
   and minimum-cost objectives, with per-instance route tracks and runtime.
 type: dataset
+version: 1.0.0
+doi: 10.5281/zenodo.21052776
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21052776
+    description: "Concept DOI (always resolves to the latest version)"
 authors:
   - family-names: Aredah
     given-names: Ahmed

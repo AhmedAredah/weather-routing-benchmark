@@ -3,7 +3,7 @@
 **A multi-basin, multi-vessel, instance-matched benchmark for ship weather-routing and speed-optimization research.**
 
 [![License: CC BY 4.0](https://img.shields.io/badge/Data%20License-CC%20BY%204.0-blue.svg)](LICENSE)
-[![DOI](https://img.shields.io/badge/DOI-pending%20(Zenodo)-lightgrey.svg)](#citation)
+[![DOI](https://zenodo.org/badge/1284530844.svg)](https://doi.org/10.5281/zenodo.21052776)
 [![Paper](https://img.shields.io/badge/Paper-under%20review-orange.svg)](#citation)
 
 ---
@@ -200,8 +200,14 @@ If you use this benchmark, please cite the accompanying paper and this dataset.
 > from a first-principles vessel model under real metocean conditions.* (Under
 > review.)
 
-A machine-readable citation is in [`CITATION.cff`](CITATION.cff). A permanent
-**Zenodo DOI** for this dataset will be added here on first release.
+A machine-readable citation is in [`CITATION.cff`](CITATION.cff). This dataset is
+permanently archived on Zenodo with the concept DOI
+[**10.5281/zenodo.21052776**](https://doi.org/10.5281/zenodo.21052776) (always
+resolves to the latest version):
+
+> Aredah, A. and Rakha, H. A. (2026). *Weather-Routing Benchmark: a multi-basin,
+> multi-vessel instance set for ship weather-routing and speed-optimization
+> research* (v1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.21052776
 
 ---
 
