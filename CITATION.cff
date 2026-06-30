@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite the dataset and the accompanying paper (preferred-citation) below."
+title: "Weather-Routing Benchmark: a multi-basin, multi-vessel instance set for ship weather-routing and speed-optimization research"
+abstract: >-
+  A fixed, openly documented benchmark for ship weather routing: 12 routes
+  spanning every major ocean basin, crossed with four seasons and two years
+  (96 voyage instances), on three standard benchmark hulls (S175 containership,
+  KVLCC2 VLCC tanker, JBC capesize bulk carrier), under identical ERA5 reanalysis
+  weather and a single weather-blind baseline. Results are priced from a
+  first-principles naval-architecture model and reported for both minimum-fuel
+  and minimum-cost objectives, with per-instance route tracks and runtime.
+type: dataset
+authors:
+  - family-names: Aredah
+    given-names: Ahmed
+    email: ahmed.aredah@gmail.com
+    affiliation: "Texas A&M Transportation Institute / Virginia Tech"
+  - family-names: Rakha
+    given-names: Hesham A.
+    affiliation: "Virginia Tech"
+license: CC-BY-4.0
+repository-code: "https://github.com/AhmedAredah/weather-routing-benchmark"
+keywords:
+  - ship weather routing
+  - benchmark
+  - speed optimization
+  - maritime decarbonization
+  - fuel consumption
+  - CO2 emissions
+  - first-principles vessel model
+  - ERA5
+preferred-citation:
+  type: article
+  title: "Energy- and emission-optimal ship routing from a first-principles vessel model under real metocean conditions"
+  authors:
+    - family-names: Aredah
+      given-names: Ahmed
+    - family-names: Rakha
+      given-names: Hesham A.
+  year: 2026
+  notes: "Under review."

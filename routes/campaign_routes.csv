@@ -1,0 +1,51 @@
+# Multi-route, multi-season campaign manifest (plan §17). One row per ROUTE;
+# the driver crosses these with the seasonal dates (and years) to form the
+# instance set. Lines beginning with '#' and blank lines are ignored. Columns:
+#   name,basin,lengthClass,startLon,startLat,goalLon,goalLat,speedMps,minLon,maxLon,minLat,maxLat,useMesh
+# bbox (minLon,maxLon,minLat,maxLat) is the ERA5 area of interest in degrees;
+# useMesh=1 enables the lateral ocean mesh run (open-water routes only).
+#
+# AUTO bbox: set minLon (col 9) to "auto" (the other 3 are then ignored) and the
+# driver derives the AOI from the great-circle path + the mesh half-width
+# (computeAoi): it samples the GC apex, takes the lon/lat envelope, and pads by
+# halfWidthKm + 4 deg margin. This guarantees the fetched ERA5 grid covers the
+# whole route INCLUDING the high-latitude apex and the mesh's lateral detour
+# room. Hand-tuned endpoint-sized bboxes clipped the apex on ocean-crossings
+# (the transatlantic GC bows to ~64N but a 56N bbox ceiling dropped the north
+# third out-of-grid -> NaN -> silent degrade to calm), so all 4 ocean-CROSSINGS
+# use "auto". computeAoi emits a WRAP (minLon > maxLon) bbox automatically when
+# the GC crosses the dateline.
+#
+# ANTIMERIDIAN: a row whose minLon > maxLon signals a bbox that WRAPS across
+# the dateline (e.g. 133 .. -113 means 133E eastward to 113W). era5_fetch.py
+# fetches both halves and merges onto a 0..360 axis (GDALMetoceanField samples
+# it natively). Used by Yokohama->LongBeach (transpacific); auto-derived here.
+#
+# Full 12-route set, coordinates from tests/benchmark_nocache_allroutes.cpp,
+# spanning every major basin and coastal -> ocean-crossing length classes.
+# The 4 ocean-CROSSINGS (rows 9-12) use mesh-ON with COARSER params (cols 14,15:
+# meshSpacingKm=80, meshHalfWidthKm=1000): the §17 convergence study shows 80 km
+# spacing converges to within 0.006 % of 40 km, and half-width SATURATES at
+# ~1000 km. So this keeps a 6000-9000 km corridor tractable (~fewer nodes than
+# the 40/400 default) while the 1000 km half-width is the quality-saturating
+# detour reach. Verified at 800 km (transpacific smoke: 2433 nodes, valid route);
+# 1000 km is the same mechanism at ~3666 nodes (safe). Other rows omit cols
+# 14,15 and use the 40 km / 400 km defaults.
+# COASTAL mesh decision (§17.17, data-driven): a mesh-on confirmatory run showed
+# NewYork->Boston (Cape Cod / Long Island offshore room) and Santos->Paranagua
+# benefit from the mesh (+2.8-8.5 % and +1-3 % on shoulder/summer dates) -> mesh
+# ON at 40 km / 200 km (route-scale half-width). Antwerpen->Zeebrugge (85 km, too
+# short to deviate) and Brisbane->Newcastle (mesh route is WORSE: offshore = rougher
+# Tasman Sea) gain nothing -> kept mesh-OFF.
+Antwerpen->Zeebrugge,NorthSea,coastal,4.40,51.22,3.20,51.33,6.0,1.5,6.0,49.8,52.5,0
+Santos->Paranagua,SAtlantic,coastal,-46.31,-23.96,-48.51,-25.50,6.0,-51.5,-43.5,-28.5,-21.0,1,40,200
+NewYork->Boston,NWAtlantic,coastal,-74.01,40.71,-71.06,42.36,6.0,-77.0,-68.0,38.0,45.0,1,40,200
+Brisbane->Newcastle,Tasman,regional,153.03,-27.47,151.78,-32.93,6.0,148.5,156.5,-36.5,-24.0,0
+Rotterdam->Algeciras,NEAtlantic,regional,4.48,51.92,-5.45,36.14,6.0,-11.0,8.0,34.0,54.0,1
+NewYork->Colon,NWAtlantic,basin,-74.01,40.71,-79.91,9.35,6.0,-83.0,-70.0,6.0,43.0,1
+Colombo->Jeddah,Indian,basin,79.85,6.93,39.17,21.49,6.0,36.0,83.0,3.0,25.0,1
+Singapore->Busan,WPacific,basin,103.82,1.35,129.08,35.18,6.0,100.0,133.0,-2.0,39.0,1
+Rotterdam->NewYork,NAtlantic,ocean,4.48,51.92,-74.01,40.71,6.0,auto,auto,auto,auto,1,80,1000
+Santos->CapeTown,SAtlantic,ocean,-46.31,-23.96,18.42,-33.92,6.0,auto,auto,auto,auto,1,80,1000
+CapeTown->Mumbai,Indian,ocean,18.42,-33.92,72.88,19.08,6.0,auto,auto,auto,auto,1,80,1000
+Yokohama->LongBeach,NPacific,ocean,139.64,35.44,-118.19,33.77,6.0,auto,auto,auto,auto,1,80,1000
